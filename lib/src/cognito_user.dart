@@ -102,7 +102,7 @@ class CognitoUser {
       return _signInUserSession;
     }
     _signInUserSession =
-        this.getCognitoUserSession(dataAuthenticate['AuthenticationResult']);
+        await this.getCognitoUserSession(dataAuthenticate['AuthenticationResult']);
     await this.cacheTokens();
 
     final newDeviceMetadata =
@@ -141,7 +141,7 @@ class CognitoUser {
         ['DeviceKey'];
     await cacheDeviceKeyAndPassword();
 
-    if (dataConfirm['UserConfirmationNecessary'] == true) {
+    if (dataConfirm['UserConfirmationNecessary'] == true && !_signInUserSession.isValid()) {
       throw new CognitoUserConfirmationNecessaryException(
           signInUserSession: _signInUserSession);
     }
