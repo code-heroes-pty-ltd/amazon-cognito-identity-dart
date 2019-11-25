@@ -661,6 +661,7 @@ class CognitoUser {
     final Map<String, String> challengeResponses = {
       'USERNAME': this.username,
       'NEW_PASSWORD': newPassword,
+      'userAttributes.name': this.username
     };
 
     final data = await respondToChallenge(
